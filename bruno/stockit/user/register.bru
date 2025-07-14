@@ -1,0 +1,21 @@
+meta {
+  name: register
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:3001/api/users/register
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "firstname": "alan",
+    "lastname": "jordy",
+    "email":"test@test.fr",
+    "password": "azerty"
+  }
+  
+}

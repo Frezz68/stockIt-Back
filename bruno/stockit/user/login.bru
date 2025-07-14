@@ -1,0 +1,27 @@
+meta {
+  name: login
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:3001/api/users/login
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+body:json {
+  {
+    "email":"test@test.fr",
+    "password": "azerty"
+  }
+}
+
+script:post-response {
+  let body = res.getBody();
+  bru.setVar("access_token",body.token);
+}

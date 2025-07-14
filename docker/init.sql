@@ -1,5 +1,4 @@
-SET NAMES 'utf8mb4';
+SET NAMES 'utf8';
 
--- Initialisation de la base de données
-USE stockit_db;
-
+-- Création de la base de données
+CREATE DATABASE stockit_db;
