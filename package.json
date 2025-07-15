@@ -6,7 +6,8 @@
   "scripts": {
     "start": "dotenvx run -- node dist/index.js",
     "dev": "dotenvx run -- ts-node-dev src/index.ts",
-    "build": "tsc"
+    "build": "tsc",
+    "migrate": "npx typeorm-ts-node-commonjs migration:run -d src/config/database.ts"
   },
   "keywords": [],
   "author": "",

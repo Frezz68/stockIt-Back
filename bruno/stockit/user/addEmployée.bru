@@ -1,0 +1,25 @@
+meta {
+  name: addEmployée
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://localhost:3001/api/users/add-employee
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+body:json {
+  {
+    "firstname": "aleena",
+    "lastname": "bonnin",
+    "email":"test2@test.fr",
+    "password": "azerty"
+  }
+  
+}

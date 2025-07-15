@@ -1,5 +1,7 @@
 import { DataSource } from "typeorm";
 import { User } from "../entity/User";
+import { Role } from "../entity/Role";
+import { InsertRole1752526701059 } from "../migrations/1752526701059-InsertRole";
 
 const AppDataSource = new DataSource({
   type: "postgres",
@@ -10,8 +12,8 @@ const AppDataSource = new DataSource({
   database: process.env.DB_DATABASE || "stockit_db",
   synchronize: true,
   logging: true,
-  entities: [User],
-  migrations: [],
+  entities: [User, Role],
+  migrations: [InsertRole1752526701059],
   subscribers: [],
 });
 export default AppDataSource;

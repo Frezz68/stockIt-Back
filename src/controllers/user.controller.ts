@@ -3,6 +3,7 @@ import AppDataSource from "../config/database";
 import { User } from "../entity/User";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import { AuthRequest } from "../middleware/auth.middleware";
 
 export class UserController {
   static async register(req: Request, res: Response) {
@@ -24,11 +25,12 @@ export class UserController {
         email,
         password: hashedPassword,
         lastConnection: new Date().toISOString(),
+        role: { id: 1 }
       });
 
       await userRepository.save(user);
 
-      const { password: _, lastConnection: __, ...userInfo } = user;
+      const { password: _, lastConnection: __, role: ___, ...userInfo } = user;
       return res.status(201).json(userInfo);
     } catch (error) {
       console.error(error);
@@ -59,7 +61,11 @@ export class UserController {
         { expiresIn: "24h" }
       );
 
-      const { password: _, lastConnection: __, ...userInfo } = user;
+      const { password: _, role: __, ...userInfo } = user;
+
+      user.lastConnection = new Date();
+      await userRepository.save(user);
+
       return res.json({
         ...userInfo,
         token
@@ -67,6 +73,58 @@ export class UserController {
     } catch (error) {
       console.error(error);
       return res.status(500).json({ message: "Erreur lors de la connexion" });
+    }
+  }
+
+  static async passwordReset(req: AuthRequest, res: Response) {
+    try {
+      const { newPassword } = req.body;
+
+      const user = req.user;
+
+      if (!user) {
+        return res.status(404).json({ message: "Utilisateur non trouvé" });
+      }
+
+      const hashedPassword = await bcrypt.hash(newPassword, 10);
+      user.password = hashedPassword;
+      await AppDataSource.getRepository(User).save(user);
+
+      return res.status(200).json({ message: "Mot de passe réinitialisé avec succès" });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ message: "Erreur lors de la réinitialisation du mot de passe" });
+    }
+  }
+
+  static async addEmployeeAccount(req: Request, res: Response) {
+    try {
+      const { firstname, lastname, email, password } = req.body;
+
+      const userRepository = AppDataSource.getRepository(User);
+      const existingUser = await userRepository.findOne({ where: { email } });
+
+      if (existingUser) {
+        return res.status(400).json({ message: "Cet email est déjà utilisé" });
+      }
+
+      const hashedPassword = await bcrypt.hash(password, 10);
+
+      const user = userRepository.create({
+        firstname,
+        lastname,
+        email,
+        password: hashedPassword,
+        role: { id: 2 }
+      });
+
+      await userRepository.save(user);
+
+      const { password: _, lastConnection: __, role: ___, ...userInfo } = user;
+      return res.status(201).json(userInfo);
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ message: "Erreur lors de la création du compte employé" });
     }
   }
 }
