@@ -1,5 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, ManyToOne } from "typeorm";
 import { Role } from "./Role";
+import { Company } from "./Company";
 
 @Entity("user")
 export class User {
@@ -23,4 +24,7 @@ export class User {
 
   @ManyToOne(() => Role, (role) => role.users)
   role!: Role;
+
+  @ManyToOne(() => Company, (company) => company.users)
+  company!: Company;
 }

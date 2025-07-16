@@ -4,18 +4,31 @@ import { User } from "../entity/User";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { AuthRequest } from "../middleware/auth.middleware";
+import { Company } from "../entity/Company";
 
 export class UserController {
+
   static async register(req: Request, res: Response) {
     try {
-      const { firstname, lastname, email, password } = req.body;
+      const { firstname, lastname, email, password, companyName } = req.body;
 
+      if (!firstname || !lastname || !email || !password || !companyName) {
+        return res.status(400).json({ message: "Tous les champs sont requis" });
+      }
+      if (password.length < 6) {
+        return res.status(400).json({ message: "Le mot de passe doit contenir au moins 6 caractères" });
+      }
+      
       const userRepository = AppDataSource.getRepository(User);
       const existingUser = await userRepository.findOne({ where: { email } });
 
       if (existingUser) {
         return res.status(400).json({ message: "Cet email est déjà utilisé" });
       }
+
+      const companyRepository = AppDataSource.getRepository(Company);
+      const company = companyRepository.create({ name: companyName });
+      await companyRepository.save(company);
 
       const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -25,7 +38,8 @@ export class UserController {
         email,
         password: hashedPassword,
         lastConnection: new Date().toISOString(),
-        role: { id: 1 }
+        role: { id: 1 },
+        company: company
       });
 
       await userRepository.save(user);
@@ -78,7 +92,14 @@ export class UserController {
 
   static async passwordReset(req: AuthRequest, res: Response) {
     try {
+
       const { newPassword } = req.body;
+      if (!newPassword) {
+        return res.status(400).json({ message: "Nouveau mot de passe requis" });
+      }
+      if (newPassword.length < 6) {
+        return res.status(400).json({ message: "Le mot de passe doit contenir au moins 6 caractères" });
+      }
 
       const user = req.user;
 
@@ -97,7 +118,7 @@ export class UserController {
     }
   }
 
-  static async addEmployeeAccount(req: Request, res: Response) {
+  static async addEmployeeAccount(req: AuthRequest, res: Response) {
     try {
       const { firstname, lastname, email, password } = req.body;
 
@@ -115,7 +136,8 @@ export class UserController {
         lastname,
         email,
         password: hashedPassword,
-        role: { id: 2 }
+        role: { id: 2 },
+        company: (req as AuthRequest).user?.company // Assuming the user is authenticated and has a company
       });
 
       await userRepository.save(user);

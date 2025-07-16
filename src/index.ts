@@ -3,6 +3,7 @@ import cors from "cors";
 import  AppDataSource from './config/database';
 import dotenvx from '@dotenvx/dotenvx';
 import userRoutes from './routes/user.route';
+import companyRoutes from './routes/company.route';
 
 dotenvx.config();
 
@@ -14,6 +15,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/api/users", userRoutes);
+app.use("/api/company",companyRoutes);
 
 
 app.get('/', (req: Request, res: Response) => {

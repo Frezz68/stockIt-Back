@@ -1,0 +1,23 @@
+meta {
+  name: getCompanyById
+  type: http
+  seq: 1
+}
+
+get {
+  url: http://localhost:3001/api/company/:id
+  body: none
+  auth: bearer
+}
+
+params:query {
+  ~id: 
+}
+
+params:path {
+  id: {{idCompany}}
+}
+
+auth:bearer {
+  token: {{access_token}}
+}

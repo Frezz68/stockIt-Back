@@ -10,7 +10,7 @@ router.post("/register", (req: Request, res: Response) => {
 router.post("/login", (req: Request, res: Response) => {
   UserController.login(req, res);
 });
-router.post("/add-employee", authenticateToken, authorizeManager, (req: Request, res: Response) => {
+router.post("/add-employee", authenticateToken, authorizeManager, (req: AuthRequest, res: Response) => {
   UserController.addEmployeeAccount(req, res);
 });
 router.post("/password-reset", authenticateToken, (req: AuthRequest, res: Response) => {

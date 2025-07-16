@@ -20,7 +20,7 @@ export const authenticateToken = async (req: Request, res: Response, next: NextF
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET || "votre_secret_tres_securise") as { userId: number };
     const userRepository = AppDataSource.getRepository(User);
-    const user = await userRepository.findOne({ relations: { role: true }, where: { id: decoded.userId } });
+    const user = await userRepository.findOne({ relations: { role: true, company: true }, where: { id: decoded.userId } });
 
     if (!user) {
       res.status(403).json({ message: "Utilisateur non trouvé" });

@@ -1,0 +1,29 @@
+meta {
+  name: UpdateCompanyById
+  type: http
+  seq: 2
+}
+
+put {
+  url: http://localhost:3001/api/company/:id
+  body: json
+  auth: bearer
+}
+
+params:query {
+  ~id: 
+}
+
+params:path {
+  id: {{idCompany}}
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+body:json {
+  {
+    "name": "Bien Poilu"
+  }
+}

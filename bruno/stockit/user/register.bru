@@ -12,10 +12,16 @@ post {
 
 body:json {
   {
-    "firstname": "alan",
-    "lastname": "jordy",
+    "firstname": "Jacque",
+    "lastname": "Ouille",
     "email":"test@test.fr",
-    "password": "azerty"
+    "password": "azerty",
+    "companyName": "Poilu"
   }
   
+}
+
+script:post-response {
+  let body = res.getBody();
+  bru.setVar("idCompany",body.company.id);
 }
