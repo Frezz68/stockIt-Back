@@ -1,0 +1,22 @@
+meta {
+  name: create ProductCompany
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:3001/api/product-company/
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+body:json {
+  {
+    "productId": 2,
+    "amount": 5
+  }
+}

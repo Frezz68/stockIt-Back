@@ -4,6 +4,7 @@ import { Role } from "../entity/Role";
 import { InsertRole1752526701059 } from "../migrations/1752526701059-InsertRole";
 import { Company } from "../entity/Company";
 import { Product } from "../entity/Product";
+import { ProductCompany } from "../entity/ProductCompany";
 
 const AppDataSource = new DataSource({
   type: "postgres",
@@ -14,7 +15,7 @@ const AppDataSource = new DataSource({
   database: process.env.DB_DATABASE || "stockit_db",
   synchronize: true,
   logging: true,
-  entities: [User, Role, Company, Product],
+  entities: [User, Role, Company, Product, ProductCompany],
   migrations: [InsertRole1752526701059],
   subscribers: [],
 });

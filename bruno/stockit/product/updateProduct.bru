@@ -1,0 +1,24 @@
+meta {
+  name: updateProduct
+  type: http
+  seq: 2
+}
+
+put {
+  url: http://localhost:3001/api/product/2
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+body:json {
+  {
+    "name": "claquettes noir",
+    "EAN": "3665187501312",
+    "reference": "clahomme",
+    "description": "claquette homme noir taille 312"
+  }
+}

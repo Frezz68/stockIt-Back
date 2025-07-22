@@ -1,0 +1,19 @@
+meta {
+  name: getProductByReference
+  type: http
+  seq: 7
+}
+
+get {
+  url: http://localhost:3001/api/product/search?reference=clahomme
+  body: none
+  auth: bearer
+}
+
+params:query {
+  reference: clahomme
+}
+
+auth:bearer {
+  token: {{access_token}}
+}

@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
+import { ProductCompany } from "./ProductCompany";
 
 @Entity()
 export class Product {
@@ -8,8 +9,8 @@ export class Product {
   @Column({ nullable: true })
   EAN?: string;
 
-  @Column()
-  reference!: string;
+  @Column({ nullable: true })
+  reference?: string;
 
   @Column({ nullable: true })
   image?: string;
@@ -20,4 +21,6 @@ export class Product {
   @Column({ type: "text", nullable: true })
   description?: string;
 
+  @OneToMany(() => ProductCompany, (productCompany) => productCompany.product)
+  productCompanies!: ProductCompany[];
 }

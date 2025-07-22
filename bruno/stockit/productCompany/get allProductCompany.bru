@@ -1,0 +1,15 @@
+meta {
+  name: get allProductCompany
+  type: http
+  seq: 4
+}
+
+get {
+  url: http://localhost:3001/api/product-company/
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{access_token}}
+}

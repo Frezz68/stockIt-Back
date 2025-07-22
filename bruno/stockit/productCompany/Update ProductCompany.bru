@@ -1,0 +1,22 @@
+meta {
+  name: Update ProductCompany
+  type: http
+  seq: 3
+}
+
+put {
+  url: http://localhost:3001/api/product-company/2
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+body:json {
+  {
+    "amount": "",
+    "price": 35.123
+  }
+}
