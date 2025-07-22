@@ -1,0 +1,15 @@
+meta {
+  name: get allStockMovement
+  type: http
+  seq: 7
+}
+
+get {
+  url: http://localhost:3001/api/stock-movement/
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{access_token}}
+}

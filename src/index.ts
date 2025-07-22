@@ -6,6 +6,7 @@ import userRoutes from "./routes/user.route";
 import companyRoutes from "./routes/company.route";
 import productRoutes from "./routes/product.route";
 import productCompanyRoutes from "./routes/ProductCompany.route";
+import stockMovementRoutes from "./routes/stockMovement.route";
 
 dotenvx.config();
 
@@ -20,6 +21,7 @@ app.use("/api/users", userRoutes);
 app.use("/api/company", companyRoutes);
 app.use("/api/product", productRoutes);
 app.use("/api/product-company", productCompanyRoutes);
+app.use("/api/stock-movement", stockMovementRoutes);
 
 app.get("/", (req: Request, res: Response) => {
   res.send("Hello, StockIt!");
