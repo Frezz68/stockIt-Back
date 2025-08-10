@@ -183,7 +183,7 @@ export class ProductCompanyController {
           movementQuantity = value;
           break;
         case "decrement":
-          const decrementValue = Math.min(value, productCompany.amount); // Ne pas décrémenter plus que disponible
+          const decrementValue = Math.min(value, productCompany.amount);
           productCompany.amount = Math.max(0, productCompany.amount - value);
           movementType = MovementType.OUT;
           movementQuantity = decrementValue;

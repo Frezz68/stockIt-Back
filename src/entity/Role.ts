@@ -1,4 +1,10 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany } from "typeorm";
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  OneToMany,
+} from "typeorm";
 import { User } from "./User";
 
 export enum RoleType {
@@ -12,8 +18,8 @@ export class Role {
   id!: number;
 
   @Column({
-    type: "enum",
-    enum: RoleType,
+    type: "varchar",
+    length: 50,
   })
   name!: RoleType;
 

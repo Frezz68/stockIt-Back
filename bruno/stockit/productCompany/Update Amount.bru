@@ -11,7 +11,7 @@ patch {
 }
 
 params:path {
-  id: 2
+  id: 1
 }
 
 auth:bearer {
@@ -20,7 +20,7 @@ auth:bearer {
 
 body:json {
   {
-    "operation": "set", // operation: "increment" | "decrement" | "set", value: number
-    "value": 5
+    "operation": "increment", // operation: "increment" | "decrement" | "set", value: number
+    "value": 10
   }
 }

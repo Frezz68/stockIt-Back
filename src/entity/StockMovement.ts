@@ -49,8 +49,8 @@ export class StockMovement {
   date!: Date;
 
   @Column({
-    type: "enum",
-    enum: MovementType,
+    type: "varchar",
+    length: 20,
   })
   type!: MovementType;
 }

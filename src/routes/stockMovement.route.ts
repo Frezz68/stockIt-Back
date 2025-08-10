@@ -8,13 +8,8 @@ import {
 
 const router = Router();
 
-router.get(
-  "/",
-  authenticateToken,
-  authorizeManager,
-  (req: AuthRequest, res: Response) => {
-    StockMovementController.getAllStockMovements(req, res);
-  }
-);
+router.get("/", authenticateToken, (req: AuthRequest, res: Response) => {
+  StockMovementController.getAllStockMovements(req, res);
+});
 
 export default router;

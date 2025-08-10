@@ -1,4 +1,10 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, ManyToOne } from "typeorm";
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+  ManyToOne,
+} from "typeorm";
 import { Role } from "./Role";
 import { Company } from "./Company";
 
@@ -19,7 +25,7 @@ export class User {
   @Column()
   password!: string;
 
-  @CreateDateColumn({ name: 'last_connection', nullable: true })
+  @CreateDateColumn({ name: "last_connection", nullable: true })
   lastConnection?: Date;
 
   @ManyToOne(() => Role, (role) => role.users)
