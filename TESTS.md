@@ -41,39 +41,6 @@ Cette documentation décrit la suite complète de tests unitaires créée pour l
 - `@types/supertest`: Types TypeScript pour Supertest
 - `sqlite3`: Driver SQLite pour tests
 
-## Configuration de la base de données de test
-
-### Adaptations pour SQLite
-
-Les enums TypeORM ne sont pas supportés par SQLite, donc les colonnes suivantes ont été modifiées :
-
-**Role.ts** :
-
-```typescript
-@Column({
-  type: "varchar",
-  length: 50,
-})
-name!: RoleType;
-```
-
-**StockMovement.ts** :
-
-```typescript
-@Column({
-  type: "varchar",
-  length: 20,
-})
-type!: MovementType;
-```
-
-### Désactivation des contraintes de clé étrangère
-
-```typescript
-// Dans setup.ts
-await testDataSource.query("PRAGMA foreign_keys = OFF;");
-```
-
 ## Tests par contrôleur
 
 ### UserController
