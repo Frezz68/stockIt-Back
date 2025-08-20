@@ -104,9 +104,6 @@ jobs:
             sleep 2
           done
 
-      - name: Run database migrations
-        run: npm run migrate 
-
       - name: Run unit tests
         run: npm test -- --coverage --watchAll=false       
 
