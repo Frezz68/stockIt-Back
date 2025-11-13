@@ -15,6 +15,11 @@ const AppDataSource = new DataSource({
   password: process.env.DB_PASSWORD || "password",
   database: process.env.DB_DATABASE || "stockit_db",
   ssl: process.env.DB_SSL === "true" ? { rejectUnauthorized: false } : false,
+  extra: {
+    ssl: {
+      rejectUnauthorized: false,
+    },
+  },
   synchronize: true,
   logging: true,
   entities: [User, Role, Company, Product, ProductCompany, StockMovement],
